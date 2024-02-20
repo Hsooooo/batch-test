@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.19.0.1:3307/factsheet-live?zeroDateTimeBehavior=convertToNull
+    username: root
+    password: illunex123!
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+  sql:
+    init:
+      schema-locations:
+        classpath*:sql/common/schema.sql,
+        classpath*:sql/common/alteration.sql,
+        classpath*:sql/common/common_code.sql
+      mode: always
+server:
+  port: 8080
+
+email:
+  imap:
+    host: ${imap-email-host}
+    test: false                             # 메일 수신 테스트 유무
+  smtp:
+    host: ${smtp-email-host}
+    test: true                             # 메일 발송 테스트 유무
+  username: ${email-username}

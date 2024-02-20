@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${fs-db-url}
+    username: ${fs-db-user}
+    password: ${fs-db-password}
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+  sql:
+    init:
+      schema-locations:
+        classpath*:sql/common/schema.sql,
+        classpath*:sql/common/alteration.sql,
+        classpath*:sql/common/common_code.sql
+      mode: always
+server:
+  port: 8080
+
+email:
+  imap:
+    host: imap.gmail.com
+    test: false                             # 메일 수신 테스트 유무
+  smtp:
+    host: smtp.gmail.com
+    test: true                             # 메일 발송 테스트 유무
+  username: biz@factsheet.biz

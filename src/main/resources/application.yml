@@ -1,0 +1,95 @@
+spring:
+  datasource:
+    hikari:
+      auto-commit: false
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: Asia/Seoul
+      hibernate.id.new_generator_mappings: true
+#      hibernate.connection.provider_disables_autocommit: true
+      # hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      # modify batch size as necessary
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+      hibernate.format_sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  task:
+    execution:
+      thread-name-prefix: factsheet-task-
+      pool:
+        core-size: 2
+        max-size: 50
+        queue-capacity: 10000
+    scheduling:
+      thread-name-prefix: factsheet-scheduling-
+      pool:
+        size: 2
+  sql:
+    init:
+      schema-locations:
+        classpath*:sql/common/schema.sql,
+        classpath*:sql/common/alteration.sql,
+        classpath*:sql/common/common_code.sql
+      mode: always
+  cloud:
+    aws:
+      credentials:
+        access-key: ${ACCESS_KEY}
+        secret-key: ${SECRET_KEY}
+      region:
+        static: ${REGION}
+      s3:
+        bucket: ${BUCKET}
+
+jwt:
+  secret: factsheet1234factsheet1234factsheet1234factsheet1234
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+  version: 1.0.0
+  port: 8080
+  cors-list: ${cors-list:}
+
+logging:
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss}:%-3relative]  %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %msg%n"
+  level:
+    root: INFO
+    org.hibernate.SQL: WARN
+#    org.springframework.web: TRACE
+#    org.springframework.web.servlet.handler.HandlerMappingIntrospector: ERROR
+
+email:
+  imap:
+    host: ${imap-email-host}
+  smtp:
+    host: ${smtp-email-host}
+  username: ${email-username}
+
+oauth2:
+  google:
+    client-id: 911901329371-pibnd9l294m3701gvbu4qi8g1hn3a233.apps.googleusercontent.com
+    client-secret: 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
+    auth-url: https://accounts.google.com/o/oauth2/v2/auth
+    issue-token-url: https://oauth2.googleapis.com/token
+    refresh-token-url: https://oauth2.googleapis.com/token
+    redirect-uri: http://localhost:10097/api/email/redirect/google
