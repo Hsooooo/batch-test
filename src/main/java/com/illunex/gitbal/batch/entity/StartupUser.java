@@ -14,7 +14,7 @@ public class StartupUser {
     @Column(unique = true)
     private String id;
 
-    private String pw;
+    private String password;
 
     private String img;
 
@@ -31,6 +31,10 @@ public class StartupUser {
     private StartupCompany company;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn()
+    @JoinColumn(name = "idx", referencedColumnName = "userIdx")
     private StartupUserProfile startupUserProfile;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idx", referencedColumnName = "userIdx")
+    private StartupCompanyHrMember hrMember;
 }

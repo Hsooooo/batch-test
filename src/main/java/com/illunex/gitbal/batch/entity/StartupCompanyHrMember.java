@@ -12,11 +12,10 @@ public class StartupCompanyHrMember {
     @Id
     private Long idx;
 
+    private Long userIdx;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "companyIdx", referencedColumnName = "idx")
     private StartupCompany company;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userIdx", referencedColumnName = "idx")
-    private StartupUser user;
 }

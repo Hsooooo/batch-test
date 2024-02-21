@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Entity
-@Table(name = "startup_user")
+@Table(name = "startup_user_profile")
 public class StartupUserProfile {
     @Id
     private Long idx;
