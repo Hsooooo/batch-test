@@ -25,7 +25,8 @@ spring:
     hibernate:
       ddl-auto: none
       naming:
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -47,18 +48,6 @@ spring:
         classpath*:sql/common/alteration.sql,
         classpath*:sql/common/common_code.sql
       mode: always
-  cloud:
-    aws:
-      credentials:
-        access-key: ${ACCESS_KEY}
-        secret-key: ${SECRET_KEY}
-      region:
-        static: ${REGION}
-      s3:
-        bucket: ${BUCKET}
-
-jwt:
-  secret: factsheet1234factsheet1234factsheet1234factsheet1234
 
 server:
   servlet:
@@ -67,7 +56,6 @@ server:
         http-only: true
   version: 1.0.0
   port: 8080
-  cors-list: ${cors-list:}
 
 logging:
   pattern:
@@ -77,19 +65,3 @@ logging:
     org.hibernate.SQL: WARN
 #    org.springframework.web: TRACE
 #    org.springframework.web.servlet.handler.HandlerMappingIntrospector: ERROR
-
-email:
-  imap:
-    host: ${imap-email-host}
-  smtp:
-    host: ${smtp-email-host}
-  username: ${email-username}
-
-oauth2:
-  google:
-    client-id: 911901329371-pibnd9l294m3701gvbu4qi8g1hn3a233.apps.googleusercontent.com
-    client-secret: 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
-    auth-url: https://accounts.google.com/o/oauth2/v2/auth
-    issue-token-url: https://oauth2.googleapis.com/token
-    refresh-token-url: https://oauth2.googleapis.com/token
-    redirect-uri: http://localhost:10097/api/email/redirect/google

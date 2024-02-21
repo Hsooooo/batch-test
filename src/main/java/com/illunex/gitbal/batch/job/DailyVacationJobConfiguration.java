@@ -19,12 +19,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableBatchProcessing(
-        dataSourceRef = "batchDataSource",
-        transactionManagerRef = "batchTransactionManager",
-        tablePrefix = "BATCH_",
-        maxVarCharLength = 1000,
-        isolationLevelForCreate = "SERIALIZABLE")
 public class DailyVacationJobConfiguration extends DefaultBatchConfiguration {
 
     private final EntityManagerFactory entityManagerFactory;
@@ -54,7 +48,7 @@ public class DailyVacationJobConfiguration extends DefaultBatchConfiguration {
                 .name("getMonthlyVacationMember")
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(chunkSize)
-                .queryString("SELECT sup FROM StartupUserProfile WHERE joinDate < now()")
+                .queryString("SELECT sup FROM StartupUserProfile sup WHERE sup.joinDate < now()")
                 .build();
     }
 
