@@ -74,5 +74,5 @@ tasks.withType(JavaCompile) {
 
 springBoot {
     buildInfo()
-    mainClass = "com.illunex.factsheet.admin.GitbalBatchApplication"
+    mainClass = "com.illunex.gitbal.batch.GitbalBatchApplication"
 }
